@@ -74,7 +74,7 @@ export default function Home() {
                 height={80}
               />
             </div>
-            <div className="grid grid-cols-3 gap-4 mt-4">
+            <div className="grid grid-cols-5 gap-4 mt-4">
               <div className="text-center">
                 <p className="text-gray-400 text-sm">Feels Like</p>
                 <p className="font-bold">{weather.feels_like}°C</p>
