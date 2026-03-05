@@ -6,7 +6,7 @@ import WeatherCard from "./components/WeatherCard"
 export default function Home() {
   const [city, setCity] = useState("")
   const [favoriteCities, setFavoriteCities] = useState<string[]>([])
-  const { weather, loading, errorMessage, fetchWeather } = useWeather()
+  const {weather, loading, errorMessage, fetchWeather } = useWeather()
 
   useEffect(() => {
     const saved = localStorage.getItem("favoriteCities")

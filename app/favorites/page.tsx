@@ -12,7 +12,14 @@ export default function Forecast() {
       if (saved) {
         setFavoriteCities(JSON.parse(saved))
       }
+      console.log(favoriteCities)
     }, [])
+
+  function removeFavorite(city: string) {
+    const newFavoriteList = favoriteCities.filter((c) => c !== city )
+    setFavoriteCities(newFavoriteList)
+    localStorage.setItem("favoriteCities", JSON.stringify(newFavoriteList))
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-8">
@@ -21,13 +28,17 @@ export default function Forecast() {
         {loading && <p className="mt-8 text-gray-400">Loading...</p>}
         {errorMessage && <p className="mt-2 text-sm text-red-500">{errorMessage}</p>}
         {favoriteCities.map((city: string) => (
+          <div key={city}>
           <button 
-            key={city}
             className="p-3 bg-gray-800 rounded-xl border border-blue-500/30 hover:border-blue-500 transition-all"
             onClick={() => fetchWeather(city)}>
             {city}
           </button>
+          <button 
+            onClick={() => removeFavorite(city)}>Sil</button>
+          </div>
         ))}
+        
        {weather && <WeatherCard weather={weather}/>}
       </div>
     </div>
