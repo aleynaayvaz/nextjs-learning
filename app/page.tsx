@@ -32,6 +32,11 @@ export default function Home() {
           placeholder="Enter city name..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              fetchWeather(city)
+            }
+          }}
         />
         <button 
           className="p-3 bg-blue-700 rounded-lg font-bold hover:scale-105 transition-transform"

@@ -27,6 +27,11 @@ export default function useWeather() {
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric&lang=en`
     )
     const data = await res.json()
+    if (data.cod === "404") {
+      setErrorMessage("City not found. Please check the city name.")
+      setLoading(false)
+      return
+    }
     setWeather({
     temp: Math.round(data.main.temp),
     description: data.weather[0].description,
