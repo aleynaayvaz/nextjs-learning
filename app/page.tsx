@@ -2,11 +2,13 @@
 import { useEffect, useState } from "react"
 import useWeather from "./hooks/useWeather"
 import WeatherCard from "./components/WeatherCard"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
   const [city, setCity] = useState("")
   const [favoriteCities, setFavoriteCities] = useState<string[]>([])
   const {weather, loading, errorMessage, fetchWeather } = useWeather()
+  const router = useRouter()
 
   useEffect(() => {
     const saved = localStorage.getItem("favoriteCities")
@@ -45,7 +47,7 @@ export default function Home() {
         </button>
         {weather && (
           <button 
-            className="mt-4 p-2 bg-yellow-500 rounded-lg font-bold hover:scale-105 transition-transform"
+            className="p-3 bg-yellow-500 rounded-lg font-bold hover:scale-105 transition-transform"
             onClick={() => addToFavorites(weather.city)}>
             Add to Favorites
           </button>
@@ -54,7 +56,17 @@ export default function Home() {
       <div>
         {loading && <p className="mt-8 text-gray-400">Loading...</p>}
         {errorMessage && <p className="mt-2 text-sm text-red-500">{errorMessage}</p>}
-        {weather && <WeatherCard weather={weather}/>}
+        {weather && 
+          <div>
+            <WeatherCard weather={weather}/>
+            <button 
+              className="p-3 w-full mt-4 bg-blue-500 rounded-lg font-bold hover:scale-105 transition-transform"
+              onClick={() => router.push(`/forecast?city=${weather.city}`)}>
+              Viev Forecast
+            </button>
+          </div>
+        }
+
       </div>
     </div>
   )
