@@ -14,6 +14,7 @@ export default function Forecast() {
   const router = useRouter()
 
   async function fetchForecast(city: string) {
+    if (!process.env.NEXT_PUBLIC_WEATHER_API_KEY) return;
     setLoading(true)
     setErrorMessage("")
     if (city.trim() === "") {
@@ -30,7 +31,11 @@ export default function Forecast() {
       setLoading(false)
       return
     }
-    setForecast(data.list.filter((item: any) => item.dt_txt.includes("12:00:00")))
+    if (data && data.list) {
+        setForecast(data.list.filter((item: any) => item.dt_txt.includes("12:00:00")));
+    } else {
+        setForecast([]);
+    }
     setCityName(data.city.name)
     setLoading(false)
   }
