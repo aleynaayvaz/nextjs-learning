@@ -22,6 +22,11 @@ export default function Home() {
     if (favoriteCities.includes(city)) {
       setSuccessMessage("Already in favorites!")
       setTimeout(() => setSuccessMessage(""), 3000)
+    return
+    }
+    if (favoriteCities.length >= 5) {
+      setSuccessMessage("You can add up to 5 cities!")
+      setTimeout(() => setSuccessMessage(""), 3000)
       return
     }
     const updated = [...favoriteCities, city]
