@@ -25,6 +25,11 @@ export default function Forecast() {
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric&lang=en`
     )
     const data = await res.json()
+    if (data.cod === "404") {
+      setErrorMessage("City not found. Please check the city name.")
+      setLoading(false)
+      return
+    }
     setForecast(data.list.filter((item: any) => item.dt_txt.includes("12:00:00")))
     setCityName(data.city.name)
     setLoading(false)
@@ -39,12 +44,17 @@ export default function Forecast() {
   return (
     <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center p-8">
       <h1 className="text-3xl font-bold mb-8">Forecast</h1>
-      <div className="flex gap-4">
+      <div className="flex gap-4 justify-between w-96">
         <input
-          className="p-3 rounded-lg bg-gray-800 border border-blue-500/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 p-3 rounded-lg bg-gray-800 border border-blue-500/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter city name..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              fetchForecast(city)
+            }
+          }}
         />
         <button 
           className="p-3 bg-blue-700 rounded-lg font-bold hover:scale-105 transition-transform"
