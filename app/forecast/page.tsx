@@ -1,9 +1,9 @@
 "use client"
 import { useSearchParams } from "next/navigation"
 import {useRouter} from "next/navigation"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
-export default function Forecast() {
+function ForecastContent() {
   const [city, setCity] = useState("")
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
@@ -91,5 +91,13 @@ export default function Forecast() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function Forecast() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">Loading...</div>}>
+      <ForecastContent />
+    </Suspense>
   )
 }
