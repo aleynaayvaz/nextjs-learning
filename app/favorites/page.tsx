@@ -34,8 +34,8 @@ export default function Forecast() {
           <p className="text-gray-400">No favorites yet. Add some cities!</p>
         )}
         {favoriteCities.map((city: string, index: number) => (
-          <div>
-            <div key={city} className="flex gap-4 justify-between w-96">
+          <div key={city}>
+            <div className="flex gap-4 justify-between w-96">
               <button 
                 className="flex-2 mt-4 p-2 bg-gray-800 rounded-xl border border-blue-500/30 hover:border-blue-500 transition-all"
                 onClick={() => {

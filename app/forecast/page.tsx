@@ -77,16 +77,12 @@ function ForecastContent() {
         {forecast && (
           <div className="mt-8 p-6 bg-gray-800 rounded-xl border border-blue-500/30 w-96 max-w-md--lg">
             <h2 className="text-center text-2xl font-bold mb-6">{cityName}</h2>
-            {forecast?.length > 0 && (
-              <div className="mt-8 p-6 bg-gray-800 rounded-xl border border-blue-500/30 w-96">
-                {forecast.map((item: any) => (
-                  <div key={item.dt} className="flex justify-between p-3 bg-gray-800 rounded-xl mb-2">
-                    <p>{item.dt_txt?.split(" ")[0]}</p>
-                    <p>{Math.round(item?.main?.temp)}°C</p>
-                  </div>
-                ))}
+            {forecast.map((item: any) => (
+              <div key={item.dt} className="flex justify-between p-3 bg-gray-800 rounded-xl mb-2">
+                <p>{item.dt_txt?.split(" ")[0]}</p>
+                <p>{Math.round(item?.main?.temp)}°C</p>
               </div>
-            )}
+            ))}
           </div>
         )}
       </div>
