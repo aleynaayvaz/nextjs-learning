@@ -57,9 +57,8 @@ export default function Home() {
           onClick={() => fetchWeather(city)}>
           Search
         </button>
-        
       </div>
-      <div>
+      <div className="w-96">
         {loading && <p className="mt-8 text-gray-400">Loading...</p>}
         {errorMessage && <p className="mt-2 text-sm text-red-500">{errorMessage}</p>}
         {successMessage && <p className="mt-2 text-sm text-green-500">{successMessage}</p>}
@@ -82,7 +81,7 @@ export default function Home() {
             </div>
           </div>
         }
-        </div>
+      </div>
     </div>
   )
 }
